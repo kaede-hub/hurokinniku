@@ -21,23 +21,6 @@ export const MapContainer = () => {
     };
     searchNearbyPlaces();
   }, []);
-  // useEffect(() => {
-    // 現在地の取得
-    // TODO: やや不安定なので改善する
-  //   const searchNearbyPlaces = async () => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(async (position) => {
-  //         setLocation({
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude,
-  //         });
-  //       },null, { enableHighAccuracy: true });
-  //     } else {
-  //       alert("位置情報の許可してください.");
-  //     }
-  //   };
-  //   searchNearbyPlaces();
-  // }, [])
   
 
   const defaultLatLng = {
@@ -45,7 +28,7 @@ export const MapContainer = () => {
     lng: 129.7744733,
   };
 
-
+  
 
   return (
     <>
@@ -61,7 +44,12 @@ export const MapContainer = () => {
           現在地に戻る
         </Button> */}
       {/* )} */}
+      
       <Map location={location ?? defaultLatLng}/>
     </>
   );
 };
+function setMap(arg0: (prevMap: any) => any) {
+  throw new Error('Function not implemented.');
+}
+
