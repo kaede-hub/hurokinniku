@@ -3,6 +3,7 @@ import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
 import Image from 'next/image';
 import { Box, Text,  Flex } from '@chakra-ui/react';
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import SearchForm from './SearchForm';
 
 
 type Props = {
@@ -138,6 +139,14 @@ const Map = forwardRef<MapRef, Props>((props, ref) => {
     }
   };
 
+
+
+
+
+  function setAddress(value: any) {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       
@@ -152,7 +161,7 @@ const Map = forwardRef<MapRef, Props>((props, ref) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
       />
-
+       
     </div>
   );
 });

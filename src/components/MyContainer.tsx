@@ -80,7 +80,6 @@ export const MapContainer = () => {
             </Box>
             が温泉・銭湯・サウナ
           </Text>
-
         </Box>
       </Flex>
 
