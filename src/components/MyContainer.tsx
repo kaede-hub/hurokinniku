@@ -32,18 +32,7 @@ export const MapContainer = () => {
 
   return (
     <>
-      {/* {showButton && ( */}
-        {/* <Button
-          colorScheme="blue"
-          position="absolute"
-          top="50px"
-          right="50px"
-          zIndex={1}
-          onClick={handleReturnToCurrentLocation}
-        >
-          現在地に戻る
-        </Button> */}
-      {/* )} */}
+      
       
       <Map location={location ?? defaultLatLng}/>
     </>

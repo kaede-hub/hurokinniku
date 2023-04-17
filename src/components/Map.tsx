@@ -26,8 +26,9 @@ const Map = (props: Props) => {
       {
         location, // 現在地
         radius: 1500, // 対象範囲
-        query: 'spa gym', // 検索ワード
+        query: 'gym  ジム 温泉 銭湯 サウナ spa',  // 検索ワード
       },
+
       (results, status) => {
         // 検索に成功したらマーカーを立てる
         if (status === google.maps.places.PlacesServiceStatus.OK) {
