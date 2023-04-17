@@ -14,13 +14,13 @@ function Header() {
           <Box 
           display="flex" 
           alignItems="center" 
-          mr={"70px"}
+          mr={"15px"}
           color="white"
-          fontSize={"15px"}
+          fontSize={"8px"}
           fontFamily="游ゴシック, YuGothic, sans-serif"
           cursor="pointer"
           _hover={{ cursor: "pointer" }}>
-            <FaEnvelope size={15} />
+            <FaEnvelope size={25} />
             <Box ml={2}>フィードバッグ</Box>
           </Box>
         </Link>
