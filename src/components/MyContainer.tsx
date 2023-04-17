@@ -2,6 +2,9 @@ import { useEffect, useState, useRef } from 'react';
 import Map from './Map';
 import { Box, Button, Flex, Text, Image } from '@chakra-ui/react';
 import { MapRef } from './Map';
+import SearchForm from './SearchForm';
+
+
 
 export const MapContainer = () => {
   const [location, setLocation] = useState<google.maps.LatLngLiteral | null>(null);
@@ -59,7 +62,11 @@ export const MapContainer = () => {
             color="white"
             pb={"10px"}
           >
-            <Image src="/images/marker.png" width={30} height={30} alt="ジム" />がジム
+            <Image
+              src="/images/marker.png"
+              width={30} height={30}
+              alt="ジム" />
+            がジム
           </Text>
         </Box>
         <Box>
@@ -73,14 +80,19 @@ export const MapContainer = () => {
             </Box>
             が温泉・銭湯・サウナ
           </Text>
+
         </Box>
       </Flex>
 
       <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         textAlign="center"
-        bgColor="#6C9F43">
+        bgColor="#6C9F43"
+      >
         <Button
-          onClick={goToCurrentLocation} 
+          onClick={goToCurrentLocation}
           borderRadius="50px"
           px={20}
           py={10}
@@ -95,6 +107,7 @@ export const MapContainer = () => {
         >
           現在地に戻る
         </Button>
+        <SearchForm />
       </Box>
       <Map location={location ?? defaultLatLng} />
     </>
