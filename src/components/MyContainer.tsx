@@ -72,7 +72,9 @@ export const MapContainer = () => {
         >
           現在地に戻る
         </Button>
-        <SearchForm />
+        <SearchForm onSearch={function (value: string): void {
+          throw new Error('Function not implemented.');
+        } } />
       </Box>
       {!isLoading && <Map location={location} isSwitchLocation={isSwitchLocation} onClickResetSwitch={resetSwitchLocation}/>}
     </>

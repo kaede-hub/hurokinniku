@@ -167,7 +167,7 @@ export const Map = (props: Props) => {
             libraries: ['drawing', 'geometry', 'places', 'visualization'],
           }}
           defaultCenter={location}
-          defaultZoom={10}
+          defaultZoom={1}
           onClick={handleMapClick}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={handleApiLoaded}
