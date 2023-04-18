@@ -1,9 +1,9 @@
 // import React, { useImperativeHandle, useState } from 'react';
 import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
 import Image from 'next/image';
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input } from '@chakra-ui/react';
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import SearchForm from './SearchForm';
+
 
 type Props = {
   location: Coords;
@@ -20,6 +20,7 @@ export const Map = (props: Props) => {
   const { location, isSwitchLocation, onClickResetSwitch } = props;
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [maps, setMaps] = useState<any>(null);
+  const [value, setValue] = useState('');
 
   // 現在地に戻す処理
   const getCenterPosition = (location: Coords, isSwitchLocation: string, onClickResetSwitch: () => void) => {
@@ -29,6 +30,26 @@ export const Map = (props: Props) => {
       map.setCenter(centerLocation);
       onClickResetSwitch();
     }
+  };
+
+  const handleSearch = () => {
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ address: value }, (results, status) => {
+      if (status === 'OK') {
+        setLocation({
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng(),
+        });
+      } else {
+        alert('検索に失敗しました: ' + status);
+      }
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearch();
   };
 
   useEffect(() => {
@@ -172,6 +193,27 @@ export const Map = (props: Props) => {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={handleApiLoaded}
         />
+        <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          placeholder="地名を入力 例:東京"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          borderRadius={"10px"}
+          fontFamily="游ゴシック, YuGothic, sans-serif"
+          cursor="pointer"
+          _hover={{ cursor: "pointer" }}
+        />
+        <Button
+          borderRadius={"10px"}
+          cursor="pointer"
+          _hover={{ cursor: "pointer" }}
+          fontFamily="游ゴシック, YuGothic,sans-serif"
+          type="submit"
+        >
+          検索
+        </Button>
+      </form>
       </div>
     );
 };
