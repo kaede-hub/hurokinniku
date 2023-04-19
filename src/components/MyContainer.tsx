@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Flex, Text, Image,  } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Image } from '@chakra-ui/react';
 import { Map } from './Map';
 
 
@@ -35,8 +35,6 @@ export const MapContainer = () => {
   const resetSwitchLocation = () => {
     setIsSwitchLocation('off');
   }
-
-
 
   return (
     <>
@@ -74,7 +72,7 @@ export const MapContainer = () => {
         >
           現在地に戻る
         </Button>
-       
+        
       </Box>
       {!isLoading && <Map location={location} isSwitchLocation={isSwitchLocation} onClickResetSwitch={resetSwitchLocation}/>}
     </>
