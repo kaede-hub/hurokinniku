@@ -53,12 +53,12 @@ export const Map = (props: Props) => {
     const searchKeywords = ['gym', 'ジム', '温泉', '銭湯', 'サウナ'];
 
     searchKeywords.forEach((keyword) => {
-    service.textSearch(
-      {
-        location, // 現在地
-        radius: 1500, // 対象範囲
-        query: keyword, // 検索ワード
-      },
+      service.textSearch(
+        {
+          location, // 現在地
+          radius: 1500, // 対象範囲
+          query: keyword, // 検索ワード
+        },
         (results, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             if (!results) return;
@@ -71,81 +71,102 @@ export const Map = (props: Props) => {
               };
             });
 
-        locationItemList.forEach((item) => {
-          const request = {
-            placeId: item.placeId || '',
-            fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'opening_hours', 'website'],
-          };
-          service.getDetails(request, (place, status) => {
-            if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+            locationItemList.forEach((item) => {
+              const request = {
+                placeId: item.placeId || '',
+                fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'opening_hours', 'website'],
+              };
+              service.getDetails(request, (place, status) => {
+                if (status !== google.maps.places.PlacesServiceStatus.OK) return;
 
-            console.log('店舗名：', place?.name);
-            console.log('詳細：', place?.formatted_address);
-            console.log('電話番号：', place?.formatted_phone_number);
-            console.log('評価：', place?.rating);
-            console.log('営業時間：', place?.opening_hours?.weekday_text);
-            console.log('Web サイト：', place?.website);
-          });
-
-          let markerIcon;
-          if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
-            markerIcon = {
-              path: google.maps.SymbolPath.CIRCLE,
-              fillColor: 'blue',
-              fillOpacity: 1,
-              strokeWeight: 2,
-              scale: 8,
-            };
-          } else {
-            markerIcon = undefined;
-          }
-
-          const marker = new maps.Marker({
-            position: {
-              lat: item.lat,
-              lng: item.lng,
-            },
-            map,
-            icon: markerIcon,
-          });
-
-          marker.addListener('click', () => {
-            const request = {
-              placeId: item.placeId || '',
-              fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'opening_hours', 'website'],
-            };
-            service.getDetails(request, (place, status) => {
-              if (status !== google.maps.places.PlacesServiceStatus.OK) return;
-
-              const content = `
-              <div>
-                <h4>${place?.name}</h4>
-                <p>${place?.formatted_address}</p>
-                <p>電話番号：${place?.formatted_phone_number}</p>
-                <p>評価：${place?.rating}</p>
-                <p>営業時間：${place?.opening_hours?.weekday_text}</p>
-                <p>ウェブサイト：${place?.website}</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a>
-              </div>
-            `;
-
-              const infoWindow = new google.maps.InfoWindow({
-                content,
+                console.log('店舗名：', place?.name);
+                console.log('詳細：', place?.formatted_address);
+                console.log('電話番号：', place?.formatted_phone_number);
+                console.log('評価：', place?.rating);
+                console.log('営業時間：', place?.opening_hours?.weekday_text);
+                console.log('Web サイト：', place?.website);
               });
-              infoWindow.open(map, marker);
+
+              let markerIcon;
+              if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
+                markerIcon = {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  fillColor: 'blue',
+                  fillOpacity: 1,
+                  strokeWeight: 2,
+                  scale: 8,
+                };
+              } else {
+                markerIcon = undefined;
+              }
+
+              const marker = new maps.Marker({
+                position: {
+                  lat: item.lat,
+                  lng: item.lng,
+                },
+                map,
+                icon: markerIcon,
+              });
+
+              const getPhotoUrl = (photos: google.maps.places.PlacePhoto[] | undefined, maxWidth: number) => {
+                if (!photos || !photos.length) return null;
+              
+                const photo = photos[0]; // You can select other photos in the array if you prefer
+                return photo.getUrl({ maxWidth });
+              };
+
+              marker.addListener('click', () => {
+                const request = {
+                  placeId: item.placeId || '',
+                  fields: [
+                    'name',
+                    'formatted_address',
+                    'formatted_phone_number',
+                    'rating',
+                    'opening_hours',
+                    'website',
+                    'photos',
+                  ],
+                };
+                service.getDetails(request, (place, status) => {
+                  if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+
+                  const photoUrl = getPhotoUrl(place?.photos, 800);
+
+                  const openingHours = place?.opening_hours?.weekday_text
+                    ? place.opening_hours.weekday_text.join('<br>')
+                    : '';
+
+                  const content = `
+                <div style="padding: 10px;">
+                  <h4>${place?.name}</h4>
+                  <p>${place?.formatted_address}</p>
+                  <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
+                  <p>評価：${place?.rating}</p>
+                  <p>営業時間：<br>${openingHours}</p>
+                  <p>ウェブサイト：<a href="${place?.website}" target="_blank" rel="noopener noreferrer">${place?.website}</a></p>
+                  ${photoUrl ? `<img src="${photoUrl}" alt="${place?.name}" style="width: 100%; height: auto; margin-top: 10px;" />` : ''}
+                  <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a></p>
+                </div>
+              `;
+
+                  const infoWindow = new google.maps.InfoWindow({
+                    content,
+                  });
+                  infoWindow.open(map, marker);
+                });
+              });
+
+
+              bounds.extend(marker.position);
+
+              
             });
-          });
-
-          bounds.extend(marker.position);
-
-          // TODO: 不要なら削除すること
-          // NOTE: この処理により表示位置がずれるためコメントアウトした
-          // map.fitBounds(bounds);
-        });
-            }
           }
-        );
-      }
+        }
+      );
+    }
     );
   };
 
@@ -159,19 +180,19 @@ export const Map = (props: Props) => {
     throw new Error('Function not implemented.');
   }
 
-    return (
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string,
-            libraries: ['drawing', 'geometry', 'places', 'visualization'],
-          }}
-          defaultCenter={location}
-          defaultZoom={10}
-          onClick={handleMapClick}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={handleApiLoaded}
-        />
-      </div>
-    );
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{
+          key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string,
+          libraries: ['drawing', 'geometry', 'places', 'visualization'],
+        }}
+        defaultCenter={location}
+        defaultZoom={10}
+        onClick={handleMapClick}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={handleApiLoaded}
+      />
+    </div>
+  );
 };
