@@ -50,7 +50,7 @@ export const Map = (props: Props) => {
     });
     map.fitBounds(circle.getBounds()!);
 
-    const searchKeywords = ['gym', 'spa', 'ジム', '温泉', '銭湯', 'サウナ'];
+    const searchKeywords = ['gym', 'ジム', '温泉', '銭湯', 'サウナ'];
 
     searchKeywords.forEach((keyword) => {
     service.textSearch(

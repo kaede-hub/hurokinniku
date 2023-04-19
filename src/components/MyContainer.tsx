@@ -72,10 +72,25 @@ export const MapContainer = () => {
         >
           現在地に戻る
         </Button>
-        
+        <a href="https://incomparable-centaur-d938f0.netlify.app/home.html" target="_blank" rel="noopener noreferrer">
+        <Button
+          borderRadius="50px"
+          px={20}
+          py={10}
+          bg="#38B6FF"
+          color="white"
+          fontFamily="游ゴシック, YuGothic, sans-serif"
+          cursor="pointer"
+          _hover={{ cursor: 'pointer' }}
+          width="100px"
+          height={'15px'}
+          margin={'5px'}
+        >
+          TOPに戻る
+        </Button>
+        </a>
       </Box>
       {!isLoading && <Map location={location} isSwitchLocation={isSwitchLocation} onClickResetSwitch={resetSwitchLocation}/>}
     </>
   );
 }; 
-
