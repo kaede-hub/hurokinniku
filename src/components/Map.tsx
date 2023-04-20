@@ -176,7 +176,6 @@ export const Map = (props: Props) => {
                       z-index: 9999999;
                     }
                   `;
-                    
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
