@@ -1,4 +1,4 @@
-// import React, { useImperativeHandle, useState } from 'react';
+
 import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
 import Image from 'next/image';
 import { Box, Text, Flex } from '@chakra-ui/react';
@@ -111,7 +111,7 @@ export const Map = (props: Props) => {
 
               const getPhotoUrl = (photos: google.maps.places.PlacePhoto[] | undefined, maxWidth: number) => {
                 if (!photos || !photos.length) return null;
-              
+
                 const photo = photos[0]; // You can select other photos in the array if you prefer
                 return photo.getUrl({ maxWidth });
               };
@@ -139,7 +139,7 @@ export const Map = (props: Props) => {
                     : '';
 
                   const content = `
-                  <div style={{height: '100%', overflowY: 'auto' }}>
+                  <div style={{height: '100%', overflowY: 'auto'}}>
                   <h4>${place?.name}</h4>
                   <p>${place?.formatted_address}</p>
                   <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
@@ -157,11 +157,7 @@ export const Map = (props: Props) => {
                   infoWindow.open(map, marker);
                 });
               });
-
-
               bounds.extend(marker.position);
-
-              
             });
           }
         }
@@ -193,7 +189,15 @@ export const Map = (props: Props) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
       />
+      <style>{`
+        .gm-style-iw {
+          background-color: transparent !important;
+          z-index: 9999 !important;
+        }
+        .gm-style .gm-style-iw-c .gm-style-iw-t::before {
+          z-index: 9999999;
+        }
+      `}</style>
     </div>
-  
   );
 };
