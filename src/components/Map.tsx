@@ -167,6 +167,7 @@ export const Map = (props: Props) => {
                         color: #333;
                         border-radius: 5px;
                         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                        z-index: 9999999;
                   
                         img {
                           width: 100%;
