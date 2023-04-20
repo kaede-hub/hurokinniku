@@ -140,7 +140,7 @@ export const Map = (props: Props) => {
                     : '';
                   
                     const content = `
-                    <div style={{height: '100%', overflowY: 'auto' backgroundColor: '#fff', color: '#333'}}>
+                    <div style={{height: '100%', overflowY: 'auto' backgroundColor: '#fff', color: '#333', z-index: 9999999}}>
                       <h4>${place?.name}</h4>
                       <p>${place?.formatted_address}</p>
                       <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
