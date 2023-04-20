@@ -139,7 +139,7 @@ export const Map = (props: Props) => {
                     : '';
 
                   const content = `
-                <div style="padding: 10px;">
+                  <div style="padding: 10px; -webkit-touch-callout: text;">
                   <h4>${place?.name}</h4>
                   <p>${place?.formatted_address}</p>
                   <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
@@ -194,5 +194,6 @@ export const Map = (props: Props) => {
         onGoogleApiLoaded={handleApiLoaded}
       />
     </div>
+  
   );
 };
