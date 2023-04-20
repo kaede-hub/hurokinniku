@@ -160,6 +160,7 @@ export const Map = (props: Props) => {
                     .gm-style-iw {
                       background-color: transparent !important;
                       z-index: 9999 !important;
+                  
                       .info-window {
                         // InfoWindowの内容をスタイリング
                         padding: 10px;
@@ -174,8 +175,7 @@ export const Map = (props: Props) => {
                     .gm-style .gm-style-iw-c .gm-style-iw-t::before {
                       z-index: 9999999;
                     }
-                  `;
-                  
+                  `;                  
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
