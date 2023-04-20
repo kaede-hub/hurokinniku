@@ -157,9 +157,9 @@ export const Map = (props: Props) => {
                     width: 100%;
                   
                     .gm-style-iw {
-                      background-color: transparent !important;
+                      background-color: #fff !important;
                       z-index: 9999 !important;
-                  
+                    
                       .info-window {
                         // InfoWindowの内容をスタイリング
                         padding: 10px;
@@ -170,7 +170,7 @@ export const Map = (props: Props) => {
                         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
                       }
                     }
-                  
+                    
                     .gm-style .gm-style-iw-c .gm-style-iw-t::before {
                       z-index: 9999999;
                     }
