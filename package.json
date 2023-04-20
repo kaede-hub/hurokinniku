@@ -27,11 +27,13 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
+    "styled-components": "^5.3.9",
     "typescript": "5.0.4"
   },
   "devDependencies": {
     "@types/google-map-react": "^2.1.7",
     "@types/google.maps": "^3.52.5",
-    "@types/react-icons": "^3.0.0"
+    "@types/react-icons": "^3.0.0",
+    "@types/styled-components": "^5.1.26"
   }
 }

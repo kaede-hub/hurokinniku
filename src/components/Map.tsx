@@ -3,6 +3,7 @@ import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
 import Image from 'next/image';
 import { Box, Text, Flex } from '@chakra-ui/react';
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 
 type Props = {
@@ -129,6 +130,7 @@ export const Map = (props: Props) => {
                     'photos',
                   ],
                 };
+
                 service.getDetails(request, (place, status) => {
                   if (status !== google.maps.places.PlacesServiceStatus.OK) return;
 
@@ -150,6 +152,29 @@ export const Map = (props: Props) => {
                   <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a></p>
                 </div>
               `;
+
+                  const StyledMap = styled.div`
+                    height: 100vh;
+                    width: 100%;
+
+                    .gm-style-iw {
+                      background-color: transparent !important;
+                      z-index: 9999 !important;
+                      .info-window {
+                        // InfoWindowの内容をスタイリング
+                        padding: 10px;
+                        font-size: 14px;
+                        color: #333;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                      }
+                    }
+
+                    .gm-style .gm-style-iw-c .gm-style-iw-t::before {
+                      z-index: 9999999;
+                    }
+                  `;
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
@@ -189,15 +214,6 @@ export const Map = (props: Props) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
       />
-      <style>{`
-        .gm-style-iw {
-          background-color: transparent !important;
-          z-index: 9999 !important;
-        }
-        .gm-style .gm-style-iw-c .gm-style-iw-t::before {
-          z-index: 9999999;
-        }
-      `}</style>
     </div>
   );
 };
