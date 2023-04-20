@@ -6,9 +6,9 @@ export default function Document() {
       
       <Head />
       <script
-            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`}
-            async
-          />
+        defer
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`}
+      />
       <body>
         <Main />
         <NextScript />
