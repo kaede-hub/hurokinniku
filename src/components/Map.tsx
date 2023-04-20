@@ -141,7 +141,7 @@ export const Map = (props: Props) => {
                   
                     const content = `
                     <div class="info-window" style={{height: '100%', overflowY: 'auto'}}>
-                      <h4>${place?.name}</h4>
+                      <h4 style={{z-index: 9999999}}>${place?.name}</h4>
                       <p>${place?.formatted_address}</p>
                       <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
                       <p>評価：${place?.rating}</p>
