@@ -139,7 +139,7 @@ export const Map = (props: Props) => {
                   const openingHours = place?.opening_hours?.weekday_text
                     ? place.opening_hours.weekday_text.join('<br>')
                     : '';
-
+                  
                     const content = `
                     <div class="info-window" style={{height: '100%', overflowY: 'auto'}}>
                       <h4>${place?.name}</h4>
@@ -175,7 +175,8 @@ export const Map = (props: Props) => {
                     .gm-style .gm-style-iw-c .gm-style-iw-t::before {
                       z-index: 9999999;
                     }
-                  `;                  
+                  `;
+                    
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
