@@ -1,4 +1,3 @@
-
 import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
 import Image from 'next/image';
 import { Box, Text, Flex } from '@chakra-ui/react';
