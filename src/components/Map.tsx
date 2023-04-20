@@ -156,7 +156,7 @@ export const Map = (props: Props) => {
                   const StyledMap = styled.div`
                     height: 100vh;
                     width: 100%;
-                    font-color:black;
+                    color:black;
 
                     .gm-style-iw {
                       background-color: transparent !important;
