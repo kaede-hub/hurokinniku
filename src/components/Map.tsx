@@ -140,15 +140,15 @@ export const Map = (props: Props) => {
                     : '';
                   
                     const content = `
-                    <div class="info-window">
+                    <div class="info-window" style={{height: '100%', overflowY: 'auto'}}>
                       <h4>${place?.name}</h4>
                       <p>${place?.formatted_address}</p>
                       <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
                       <p>評価：${place?.rating}</p>
                       <p>営業時間：<br>${openingHours}</p>
                       <p>ウェブサイト：<a href="${place?.website}" target="_blank" rel="noopener noreferrer">${place?.website}</a></p>
-                      ${photoUrl ? `<img src="${photoUrl}" alt="${place?.name}" />` : ''}
-                      <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer">Google Map で見る</a></p>
+                      ${photoUrl ? `<img src="${photoUrl}" alt="${place?.name}" style="width: 100%; height: auto; margin-top: 10px;" />` : ''}
+                      <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a></p>
                     </div>
                   `;
                   
@@ -161,19 +161,13 @@ export const Map = (props: Props) => {
                       z-index: 9999 !important;
                   
                       .info-window {
+                        // InfoWindowの内容をスタイリング
                         padding: 10px;
                         font-size: 14px;
+                        color: #333;
                         background-color: #fff;
-                        color: black;
                         border-radius: 5px;
                         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-                        z-index: 9999999;
-                  
-                        img {
-                          width: 100%;
-                          height: auto;
-                          margin-top: 10px;
-                        }
                       }
                     }
                   
@@ -181,9 +175,6 @@ export const Map = (props: Props) => {
                       z-index: 9999999;
                     }
                   `;
-                  
-                  
-                 
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
