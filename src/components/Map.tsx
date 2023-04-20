@@ -164,7 +164,7 @@ export const Map = (props: Props) => {
                         padding: 10px;
                         font-size: 14px;
                         background-color: #fff;
-                        color: #333;
+                        color: black;
                         border-radius: 5px;
                         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
                         z-index: 9999999;
