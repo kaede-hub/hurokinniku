@@ -12,6 +12,25 @@ type Props = {
   onClick?: () => void;
 };
 
+const StyledMap = styled.div`
+  height: 100vh;
+  width: 100%;
+
+  .gm-style-iw {
+    background-color: #fff !important;
+    z-index: 9999 !important;
+
+    .info-window {
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+`;
+
 export type MapRef = {
   centerMap: (location: Coords) => void;
 };
@@ -140,7 +159,7 @@ export const Map = (props: Props) => {
                     : '';
                   
                     const content = `
-                    <div style={{height: '100%', overflowY: 'auto'}}>
+                    <div class="info-window" style={{height: '100%', overflowY: 'auto'}}>
                       <h4>${place?.name}</h4>
                       <p>${place?.formatted_address}</p>
                       <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
@@ -152,25 +171,25 @@ export const Map = (props: Props) => {
                     </div>
                   `;
                   
-                  // const StyledMap = styled.div`
-                  //   height: 100vh;
-                  //   width: 100%;
+                  const StyledMap = styled.div`
+                    height: 100vh;
+                    width: 100%;
                   
-                  //   .gm-style-iw {
-                  //     background-color: #fff !important;
-                  //     z-index: 9999 !important;
+                    .gm-style-iw {
+                      background-color: #fff !important;
+                      z-index: 9999 !important;
                     
-                  //     .info-window {
-                  //       // InfoWindowの内容をスタイリング
-                  //       padding: 10px;
-                  //       font-size: 14px;
-                  //       color: #333;
-                  //       background-color: #fff;
-                  //       border-radius: 5px;
-                  //       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-                  //     }
-                  //   }
-                  // `;
+                      .info-window {
+                        // InfoWindowの内容をスタイリング
+                        padding: 10px;
+                        font-size: 14px;
+                        color: #333;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                      }
+                    }
+                  `;
 
                   const infoWindow = new google.maps.InfoWindow({
                     content,
@@ -198,6 +217,7 @@ export const Map = (props: Props) => {
   }
 
   return (
+    <StyledMap>
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
@@ -211,5 +231,6 @@ export const Map = (props: Props) => {
         onGoogleApiLoaded={handleApiLoaded}
       />
     </div>
+    </StyledMap>
   );
 };
