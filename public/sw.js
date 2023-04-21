@@ -1,9 +1,12 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('your-cache-name').then((cache) => {
+    caches.open('cache-v1').then((cache) => {
       return cache.addAll([
         '/',
-        // 他にキャッシュしたいリソース（画像やCSSなど）をリストアップ
+        '/index.html',
+        '/manifest.json',
+        '/icon-192x192.png',
+        '/icon-512x512.png',
       ]);
     })
   );
