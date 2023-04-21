@@ -1,6 +1,6 @@
 {
-  "name": "Your App Name",
-  "short_name": "App",
+  "name": "フロマッチョ",
+  "short_name": "フロマッチョ",
   "description": "A description of your app",
   "start_url": "/",
   "display": "standalone",
