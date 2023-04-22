@@ -216,6 +216,9 @@ export const Map = (props: Props) => {
     throw new Error('Function not implemented.');
   }
 
+
+  
+
   return (
     <StyledMap>
     <div style={{ height: '100vh', width: '100%' }}>
