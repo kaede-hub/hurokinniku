@@ -12,6 +12,7 @@ export const MapContainer = () => {
   const [location, setLocation] = useState<google.maps.LatLngLiteral>(defaultLatLng);
   const [isSwitchLocation, setIsSwitchLocation] = useState('off');
   const [isLoading, setIsLoading] = useState(location === defaultLatLng);
+  
 
   const searchNearbyPlaces = () => {
     if (navigator.geolocation) {
@@ -35,6 +36,8 @@ export const MapContainer = () => {
   const resetSwitchLocation = () => {
     setIsSwitchLocation('off');
   }
+
+
 
   return (
     <>
