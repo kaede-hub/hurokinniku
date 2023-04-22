@@ -8,7 +8,11 @@ const defaultLatLng = {
   lng: 129.7744733,
 };
 
+const [searchInput, setSearchInput] = useState('');
 
+const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchInput(event.target.value);
+};
 
 export const MapContainer = () => {
   const [location, setLocation] = useState<google.maps.LatLngLiteral>(defaultLatLng);
@@ -95,6 +99,14 @@ export const MapContainer = () => {
           </Button>
         </a>
       </Box>
+      {/* <Box>
+  <Input
+    value={searchInput}
+    onChange={handleSearchInputChange}
+    placeholder="Search by place name"
+  />
+  <Button onClick={() => searchByPlaceName(searchInput)}>Search</Button>
+</Box> */}
       {!isLoading && <Map location={location} isSwitchLocation={isSwitchLocation} onClickResetSwitch={resetSwitchLocation} />}
     </>
   );

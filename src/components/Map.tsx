@@ -9,8 +9,12 @@ type Props = {
   location: Coords;
   isSwitchLocation: string;
   onClickResetSwitch: () => void;
+  // searchInput: string;
   onClick?: () => void;
 };
+
+
+
 
 const StyledMap = styled.div`
   height: 100vh;
@@ -233,6 +237,12 @@ export const Map = (props: Props) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
       />
+      {/* <Map
+  location={location}
+  isSwitchLocation={isSwitchLocation}
+  onClickResetSwitch={resetSwitchLocation}
+  searchInput={searchInput}
+/> */}
     </div>
     </StyledMap>
   );
