@@ -1,38 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+今回、現在地周辺のジムとサウナを同時に表示できるマップサイト作成しました。
 
-## Getting Started
+作った理由としては、自分自身がジムで筋トレしたり銭湯やサウナに言って疲れを癒したりするのが好きで作成しました。
+このアプリの長所としては3つあります。
 
-First, run the development server:
+1.従来のグーグルマップより表示数が多い
+→Google Map API を使用してジムとサウナで限定しているため
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+2.いちいち検索かける手間が減る。
+→自分自身、かなりのめんどくさがりなので、正直この機能は気に入っています。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3.PWAにしているので普通のMAPサイトと比べて操作性が良い
+→最初はNetlifyで公開していて操作していましたが、とても操作性が悪かったので、PWAにして操作性を向上させため、操作性はかなりいいです。
+　実際に自分はジムや銭湯を探すときはこのサイトを利用することが増えました。
+ 
+以上がアプリの説明です。
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+最後に使用技術を説明していきます。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+・Next.js
+・Google　Map API
