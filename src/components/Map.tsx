@@ -14,8 +14,6 @@ type Props = {
 };
 
 
-
-
 const StyledMap = styled.div`
   height: 100vh;
   width: 100%;
@@ -39,6 +37,8 @@ export type MapRef = {
   centerMap: (location: Coords) => void;
 };
 
+
+// export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetSwitch, searchResults, setSearchResults }) =>{
 export const Map = (props: Props) => {
   const { location, isSwitchLocation, onClickResetSwitch } = props;
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -237,12 +237,7 @@ export const Map = (props: Props) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={handleApiLoaded}
       />
-      {/* <Map
-  location={location}
-  isSwitchLocation={isSwitchLocation}
-  onClickResetSwitch={resetSwitchLocation}
-  searchInput={searchInput}
-/> */}
+
     </div>
     </StyledMap>
   );

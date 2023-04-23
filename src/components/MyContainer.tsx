@@ -99,15 +99,152 @@ export const MapContainer = () => {
           </Button>
         </a>
       </Box>
-      {/* <Box>
-  <Input
-    value={searchInput}
-    onChange={handleSearchInputChange}
-    placeholder="Search by place name"
-  />
-  <Button onClick={() => searchByPlaceName(searchInput)}>Search</Button>
-</Box> */}
       {!isLoading && <Map location={location} isSwitchLocation={isSwitchLocation} onClickResetSwitch={resetSwitchLocation} />}
     </>
   );
 }; 
+
+
+// import { useEffect, useState } from "react";
+// import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
+// import { Map } from "./Map";
+
+// const defaultLatLng = {
+//   lat: 35.7022589,
+//   lng: 129.7744733,
+// };
+
+// export const MapContainer = () => {
+//   const [location, setLocation] = useState<google.maps.LatLngLiteral>(
+//     defaultLatLng
+//   );
+//   const [isSwitchLocation, setIsSwitchLocation] = useState("off");
+//   const [isLoading, setIsLoading] = useState(location === defaultLatLng);
+//   const [searchKeyword, setSearchKeyword] = useState("");
+//   const [searchResults, setSearchResults] = useState<google.maps.places.PlaceResult[]>([]);
+
+//   const searchNearbyPlaces = () => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition((position) => {
+//         const { latitude, longitude } = position.coords;
+//         setIsLoading(latitude === defaultLatLng.lat && longitude === defaultLatLng.lng);
+//         setLocation({
+//           lat: latitude,
+//           lng: longitude,
+//         });
+//       });
+//     } else {
+//       alert("Geolocation is not supported by this browser.");
+//     }
+//   };
+
+//   const searchByPlaceName = (keyword: string) => {
+//     if (map && maps) {
+//       const service = new google.maps.places.PlacesService(map);
+
+//       service.textSearch(
+//         {
+//           location,
+//           radius: 1500,
+//           query: keyword,
+//         },
+//         (results, status) => {
+//           if (status === google.maps.places.PlacesServiceStatus.OK) {
+//             setSearchResults(results);
+//           }
+//         }
+//       );
+//     }
+//   };
+
+//   useEffect(() => {
+//     searchNearbyPlaces();
+//   }, []);
+
+//   const resetSwitchLocation = () => {
+//     setIsSwitchLocation("off");
+//   };
+
+//   return (
+//     <>
+//       <Flex justifyContent="center" alignItems="center" bgColor="#6C9F43" textAlign="center" flexDirection="row">
+//        <Box>
+//           <Text fontFamily="游ゴシック, YuGothic, sans-serif" color="white" pb={'10px'}>
+//              <Image src="/images/marker.png" width={30} height={30} alt="ジム" />
+//          がジム
+//            </Text>
+//       </Box>
+//         <Box>
+//           <Text fontFamily="游ゴシック, YuGothic, sans-serif" color="white" ml={'10px'}>
+//         <Box as="span" color="blue" fontWeight="bold">
+//               〇
+//         </Box>
+//              が温泉・銭湯・サウナ
+//            </Text>
+//          </Box>
+//        </Flex>
+
+//       <Box display="flex" justifyContent="center" alignItems="center" textAlign="center" bgColor="#6C9F43">
+//          <Button
+//           onClick={() => setIsSwitchLocation('on')}
+//           borderRadius="50px"
+//           px={20}
+//           py={10}
+//           bg="#38B6FF"
+//           color="white"
+//           fontFamily="游ゴシック, YuGothic, sans-serif"
+//           cursor="pointer"
+//           _hover={{ cursor: 'pointer' }}
+//           width="100px"
+//           height={'15px'}
+//           margin={'5px'}
+//         >
+//           現在地に戻る
+//         </Button>
+//         <a href="https://incomparable-centaur-d938f0.netlify.app/home.html" target="_blank" rel="noopener noreferrer">
+//           <Button
+//             borderRadius="50px"
+//             px={20}
+//             py={10}
+//             bg="#38B6FF"
+//             color="white"
+//             fontFamily="游ゴシック, YuGothic, sans-serif"
+//             cursor="pointer"
+//             _hover={{ cursor: 'pointer' }}
+//             width="100px"
+//             height={'15px'}
+//             margin={'5px'}
+//           >
+//             TOPに戻る
+//           </Button>
+//         </a>
+//       </Box>
+
+//       {/* Add the input field and search button */}
+//       <Box display="flex" justifyContent="center" alignItems="center" textAlign="center" bgColor="#6C9F43">
+//         <input
+//           type="text"
+//           value={searchKeyword}
+//           onChange={(e) => setSearchKeyword(e.target.value)}
+//           placeholder="Search by place name"
+//         />
+//         <button onClick={() => searchByPlaceName(searchKeyword)}>Search</button>
+//       </Box>
+
+//       {/* Add the button to search for nearby facilities */}
+//       <Box display="flex" justifyContent="center" alignItems="center" textAlign="center" bgColor="#6C9F43">
+//         <Button onClick={searchNearbyPlaces}>Search Nearby Facilities</Button>
+//       </Box>
+
+//       {!isLoading && (
+//         <Map
+//           location={location}
+//           isSwitchLocation={isSwitchLocation}
+//           onClickResetSwitch={resetSwitchLocation}
+//           searchResults={searchResults}
+//           setSearchResults={setSearchResults}
+//         />
+//       )}
+//     </>
+//   );
+// };
