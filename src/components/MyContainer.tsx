@@ -271,7 +271,7 @@ export const MyContainer = () => {
          fontFamily="游ゴシック, YuGothic, sans-serif"
          cursor="pointer"
          _hover={{ cursor: 'pointer' }}
-         width="30%"
+         width="200px"
          height={'15px'}
          margin={'5px'}   >
           検索結果周辺のジムとサウナ
