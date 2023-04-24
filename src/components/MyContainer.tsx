@@ -115,8 +115,6 @@ const defaultLatLng = {
 };
 
 
-
-
 export const MyContainer = () => {
   const [location, setLocation] = useState<google.maps.LatLngLiteral>(
     defaultLatLng

@@ -293,6 +293,8 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
     }
   };
 
+ 
+
   useEffect(() => {
     getCenterPosition(location, isSwitchLocation, onClickResetSwitch);
   }, [location, isSwitchLocation, onClickResetSwitch]);
@@ -456,6 +458,8 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
     // }
   };
 
+  
+
   return (
     <StyledMap>
       <div style={{ height: '100vh', width: '100%' }}>
@@ -476,3 +480,26 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
     </StyledMap>
   );
 };
+
+
+
+// useEffect(() => {
+//   if (map && maps && searchResults.length > 0) {
+//     // 既存のマーカーを削除
+//     // ...
+
+//     // searchResults から新しいマーカーを生成
+//     searchResults.forEach((result) => {
+//       const marker = new maps.Marker({
+//         position: {
+//           lat: result.geometry?.location?.lat(),
+//           lng: result.geometry?.location?.lng(),
+//         },
+//         map,
+//       });
+
+//       // 必要に応じて、マーカーにイベントリスナを追加
+//       // ...
+//     });
+//   }
+// }, [map, maps, searchResults]);
