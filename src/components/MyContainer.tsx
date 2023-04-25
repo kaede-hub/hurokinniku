@@ -109,6 +109,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
 import { Map } from "./Map";
 
+
 const defaultLatLng = {
   lat: 35.7022589,
   lng: 129.7744733,
@@ -123,6 +124,7 @@ export const MyContainer = () => {
   const [isLoading, setIsLoading] = useState(location === defaultLatLng);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState<google.maps.places.PlaceResult[]>([]);
+  const [keyword, setKeyword] = useState("");
   const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
   const [mapsApi, setMapsApi] = useState<typeof google.maps | null>(null);
 
@@ -146,28 +148,6 @@ export const MyContainer = () => {
     }
   };
 
-  const searchByPlaceName = (keyword: string) => {
-    if (mapInstance && mapsApi) {
-      const service = new mapsApi.places.PlacesService(mapInstance);
-  
-      service.textSearch(
-        {
-          location,
-          radius: 1500,
-          query: keyword,
-        },
-        (results, status) => {
-          if (status === mapsApi.places.PlacesServiceStatus.OK && results) {
-            setSearchResults(results);
-          } else {
-            setSearchResults([]);
-          }
-        }
-      );
-    }
-  };
-  
-
   useEffect(() => {
     searchNearbyPlaces();
   }, []);
@@ -175,6 +155,8 @@ export const MyContainer = () => {
   const resetSwitchLocation = () => {
     setIsSwitchLocation("off");
   };
+
+  
 
   return (
     <>
@@ -240,7 +222,8 @@ export const MyContainer = () => {
           placeholder="地名を検索 例：東京駅"
         />
         <Button 
-         onClick={() => searchByPlaceName(searchKeyword)}
+        //  onClick={searchKeyword}
+         onClick={() => setKeyword(searchKeyword)}
          borderRadius="50px"
          px={20}
          py={10}
@@ -255,10 +238,11 @@ export const MyContainer = () => {
           >
           検索
         </Button>
+        
       </Box>
 
       {/* Add the button to search for nearby facilities */}
-      <Box display="flex" justifyContent="center" alignItems="center" textAlign="center" bgColor="#6C9F43">
+      {/* <Box display="flex" justifyContent="center" alignItems="center" textAlign="center" bgColor="#6C9F43">
         <Button 
          onClick={searchNearbyPlaces}
          borderRadius="50px"
@@ -274,7 +258,7 @@ export const MyContainer = () => {
          margin={'5px'}   >
           検索結果周辺のジムとサウナ
         </Button>
-        </Box>
+        </Box> */}
 
       {!isLoading && (
         <Map
@@ -284,6 +268,7 @@ export const MyContainer = () => {
           searchResults={searchResults}
           setSearchResults={setSearchResults}
           onMapLoaded={handleMapLoaded}
+          keyword={keyword} 
         />
       )}
     </>

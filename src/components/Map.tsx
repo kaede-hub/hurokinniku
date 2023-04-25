@@ -246,10 +246,11 @@
 
 
 
-import GoogleMapReact, { ClickEventValue, Coords } from 'google-map-react';
-import { Box, Text, Flex } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
+import GoogleMapReact, { ClickEventValue, Coords } from "google-map-react";
+import styled from "styled-components";
+
 
 interface Props {
   location: google.maps.LatLngLiteral;
@@ -259,6 +260,7 @@ interface Props {
   setSearchResults: React.Dispatch<React.SetStateAction<google.maps.places.PlaceResult[]>>;
   onClick?: () => void;
   onMapLoaded: (map: google.maps.Map, maps: typeof google.maps) => void;
+  keyword:string
 }
 
 const StyledMap = styled.div`
@@ -280,9 +282,13 @@ const StyledMap = styled.div`
   }
 `;
 
-export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetSwitch, searchResults, setSearchResults }) => {
+
+
+export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetSwitch, searchResults, setSearchResults, keyword }) => {
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [maps, setMaps] = useState<any>(null);
+  const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+  const [infoWindows, setInfoWindows] = useState<google.maps.InfoWindow[]>([]);
 
   const getCenterPosition = (location: Coords, isSwitchLocation: string, onClickResetSwitch: () => void) => {
     if (map && isSwitchLocation === 'on') {
@@ -293,15 +299,95 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
     }
   };
 
+  
  
 
+
+  const searchByPlaceName = (placeName: string) => {
+    if (map && maps) {
+      const service = new maps.places.PlacesService(map);
+  
+      const searchKeywords = ['gym', 'ジム', '温泉', '銭湯', 'サウナ'].map(
+        (keyword) => `${placeName} ${keyword}`
+      );
+  
+      searchKeywords.forEach((keyword) => {
+        service.textSearch(
+          {
+            location,
+            radius: 1500,
+            query: keyword,
+          },
+  
+          (
+            results: google.maps.places.PlaceResult[] | null,
+            status: google.maps.places.PlacesServiceStatus
+          ) => {
+            if (status === maps.places.PlacesServiceStatus.OK && results) {
+              results.forEach((place) => {
+                if (place.geometry?.location) {
+                  let markerIcon;
+                  if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
+                    markerIcon = {
+                      path: google.maps.SymbolPath.CIRCLE,
+                      fillColor: 'blue',
+                      fillOpacity: 1,
+                      strokeWeight: 2,
+                      scale: 8,
+                    };
+                  } else {
+                    markerIcon = undefined;
+                  }
+  
+                  const marker = new maps.Marker({
+                    map,
+                    position: place.geometry.location,
+                    icon: markerIcon,
+                  });
+  
+                  const infoWindow = new maps.InfoWindow({
+                    content: `
+                      <div>
+                        <h3>${place.name}</h3>
+                        <p>${place.formatted_address}</p>
+                      </div>
+                    `,
+                  });
+  
+                  marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                  });
+  
+                  setMarkers((prevMarkers) => [...prevMarkers, marker]);
+                  setInfoWindows((prevInfoWindows) => [
+                    ...prevInfoWindows,
+                    infoWindow,
+                  ]);
+                }
+              });
+            } else {
+              // エラー時の処理
+            }
+          }
+        );
+      });
+    }
+  };
+  
+  
   useEffect(() => {
     getCenterPosition(location, isSwitchLocation, onClickResetSwitch);
-  }, [location, isSwitchLocation, onClickResetSwitch]);
+    searchByPlaceName(keyword);
+  }, [location, isSwitchLocation, onClickResetSwitch, keyword]);
+  
 
+ 
+  // handleApiLoaded 関数の定義を開始し、その関数が Google Maps API の読み込みが完了したときに呼び出されるようにしている。 setMap と setMaps という 2 つのステート更新関数を呼び出して、map と maps の値をそれぞれのステートに保存しています。これにより、コンポーネントの他の部分で map と maps の値にアクセスできるようになる
   const handleApiLoaded = ({ map, maps }: { map: google.maps.Map; maps: any }) => {
     setMap(map);
+    // : Google Maps のインスタンス（オブジェクト）です。これを使用して、マップにマーカーやインフォウィンドウなどのオブジェクトを追加したり、マップのプロパティ（ズームレベルや中心地点など）を操作したりできる。
     setMaps(maps);
+    // : Google Maps API が提供するすべてのクラス、メソッド、オブジェクトにアクセスできるようにするオブジェクトです。これを使用して、新しいマーカーやインフォウィンドウのインスタンスを作成したり、特定のサービス（Places API など）を使用したりできる。
 
     const service = new google.maps.places.PlacesService(map);
     if (maps === null) return;
@@ -336,21 +422,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
             });
 
             locationItemList.forEach((item) => {
-              const request = {
-                placeId: item.placeId || '',
-                fields: ['name', 'formatted_address', 'formatted_phone_number', 'rating', 'opening_hours', 'website'],
-              };
-              service.getDetails(request, (place, status) => {
-                if (status !== google.maps.places.PlacesServiceStatus.OK) return;
-
-                console.log('店舗名：', place?.name);
-                console.log('詳細：', place?.formatted_address);
-                console.log('電話番号：', place?.formatted_phone_number);
-                console.log('評価：', place?.rating);
-                console.log('営業時間：', place?.opening_hours?.weekday_text);
-                console.log('Web サイト：', place?.website);
-              });
-
+           
               let markerIcon;
               if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
                 markerIcon = {
@@ -373,6 +445,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
                 icon: markerIcon,
               });
 
+              // 写真の大きさを定義している
               const getPhotoUrl = (photos: google.maps.places.PlacePhoto[] | undefined, maxWidth: number) => {
                 if (!photos || !photos.length) return null;
 
@@ -380,6 +453,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
                 return photo.getUrl({ maxWidth });
               };
 
+              // addListenerでmarkerをクリックすると店舗詳細情報が取得できるようにしている。markerは対象要素
               marker.addListener('click', () => {
                 const request = {
                   placeId: item.placeId || '',
@@ -397,8 +471,10 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
                 service.getDetails(request, (place, status) => {
                   if (status !== google.maps.places.PlacesServiceStatus.OK) return;
 
+                  // 800は写真のサイズ
                   const photoUrl = getPhotoUrl(place?.photos, 800);
 
+                  // 営業時間を改行させる処理をしている
                   const openingHours = place?.opening_hours?.weekday_text
                     ? place.opening_hours.weekday_text.join('<br>')
                     : '';
@@ -483,23 +559,4 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
 
 
 
-// useEffect(() => {
-//   if (map && maps && searchResults.length > 0) {
-//     // 既存のマーカーを削除
-//     // ...
 
-//     // searchResults から新しいマーカーを生成
-//     searchResults.forEach((result) => {
-//       const marker = new maps.Marker({
-//         position: {
-//           lat: result.geometry?.location?.lat(),
-//           lng: result.geometry?.location?.lng(),
-//         },
-//         map,
-//       });
-
-//       // 必要に応じて、マーカーにイベントリスナを追加
-//       // ...
-//     });
-//   }
-// }, [map, maps, searchResults]);
