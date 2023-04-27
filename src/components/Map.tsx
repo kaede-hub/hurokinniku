@@ -299,9 +299,6 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
     }
   };
 
-  
- 
-
 
   const searchByPlaceName = (placeName: string) => {
     if (map && maps) {
@@ -367,6 +364,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
               });
             } else {
               // エラー時の処理
+              console.log("検索できませんでした");
             }
           }
         );
@@ -402,6 +400,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
 
     const searchKeywords = ['gym', 'ジム', '温泉', '銭湯', 'サウナ'];
 
+    // forEachで定義したSearchKeywordのservice.textSearchの要素に対して処理を実行
     searchKeywords.forEach((keyword) => {
       service.textSearch(
         {
@@ -413,6 +412,7 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             if (!results) return;
 
+            // mapでlocationItemListの要素から新しい配列を生成
             const locationItemList = results.map((result) => {
               return {
                 lat: result.geometry?.location?.lat(),
