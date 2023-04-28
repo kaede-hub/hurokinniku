@@ -256,6 +256,26 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
                       </div>
                     `,
                   });
+
+                  const StyledMap = styled.div`
+                  height: 100vh;
+                  width: 100%;
+                
+                  .gm-style-iw {
+                    background-color: #fff !important;
+                    z-index: 9999 !important;
+                  
+                    .info-window {
+                      // InfoWindowの内容をスタイリング
+                      padding: 10px;
+                      font-size: 14px;
+                      color: #333;
+                      background-color: #fff;
+                      border-radius: 5px;
+                      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                    }
+                  }
+                `;
   
                   marker.addListener("click", () => {
                     infoWindow.open(map, marker);
