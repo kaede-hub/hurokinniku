@@ -300,6 +300,152 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
   };
 
 
+  // const searchByPlaceName = (placeName: string) => {
+  //   if (map && maps) {
+  //     const service = new maps.places.PlacesService(map);
+  
+  //     const searchKeywords = ['gym', 'ジム', '温泉', '銭湯', 'サウナ'].map(
+  //       (keyword) => `${placeName} ${keyword}`
+  //     );
+  
+  //     searchKeywords.forEach((keyword) => {
+  //       service.textSearch(
+  //         {
+  //           location,
+  //           radius: 1500,
+  //           query: keyword,
+  //         },
+  
+  //         (
+  //           results: google.maps.places.PlaceResult[] | null,
+  //           status: google.maps.places.PlacesServiceStatus
+  //         ) => {
+  //           if (status === maps.places.PlacesServiceStatus.OK && results)
+  //           {
+  //             console.log(results)
+
+  //             const locationItemList = results.map((result) => {
+  //               return {
+  //                 lat: result.geometry?.location?.lat(),
+  //                 lng: result.geometry?.location?.lng(),
+  //                 placeId: result.place_id,
+  //                 location: result.geometry?.location,
+  //               };
+  //             });
+
+  //             locationItemList.forEach((place) => {
+  //                {
+  //                 map.setCenter(place.location);
+  //                 map.setZoom(14);
+  //                 let markerIcon;
+  //                 if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
+  //                   markerIcon = {
+  //                     path: google.maps.SymbolPath.CIRCLE,
+  //                     fillColor: 'blue',
+  //                     fillOpacity: 1,
+  //                     strokeWeight: 2,
+  //                     scale: 8,
+  //                   };
+  //                 } else {
+  //                   markerIcon = undefined;
+  //                 }
+  
+  //                 const marker = new maps.Marker({
+  //                   map,
+  //                   position: place.geometry.location,
+  //                   icon: markerIcon,
+  //                 });
+
+
+  
+  //                 marker.addListener('click', () => {
+  //                   const request = {
+  //                     placeId: place.placeId || '',
+  //                     fields: [
+  //                       'name',
+  //                       'formatted_address',
+  //                       'formatted_phone_number',
+  //                       'rating',
+  //                       'opening_hours',
+  //                       'website',
+  //                       'photos',
+  //                     ],
+  //                   };
+    
+  //                   service.getDetails(request, (place, status) => {
+  //                     if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+    
+  //                     // 800は写真のサイズ
+  //                     const photoUrl = getPhotoUrl(place?.photos, 800);
+    
+  //                     // 営業時間を改行させる処理をしている
+  //                     const openingHours = place?.opening_hours?.weekday_text
+  //                       ? place.opening_hours.weekday_text.join('<br>')
+  //                       : '';
+                      
+  //                       const content = `
+  //                       <div class="info-window" style={{height: '100%', overflowY: 'auto'}}>
+  //                         <h4>${place?.name}</h4>
+  //                         <p>${place?.formatted_address}</p>
+  //                         <p>電話番号：<a href="tel:${place?.formatted_phone_number}">${place?.formatted_phone_number}</a></p>
+  //                         <p>評価：${place?.rating}</p>
+  //                         <p>営業時間：<br>${openingHours}</p>
+  //                         <p>ウェブサイト：<a href="${place?.website}" target="_blank" rel="noopener noreferrer">${place?.website}</a></p>
+  //                         ${photoUrl ? `<img src="${photoUrl}" alt="${place?.name}" style="width: 100%; height: auto; margin-top: 10px;" />` : ''}
+  //                         <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a></p>
+  //                       </div>
+  //                     `;
+                      
+  //                     const StyledMap = styled.div`
+  //                       height: 100vh;
+  //                       width: 100%;
+                      
+  //                       .gm-style-iw {
+  //                         background-color: #fff !important;
+  //                         z-index: 9999 !important;
+                        
+  //                         .info-window {
+  //                           // InfoWindowの内容をスタイリング
+  //                           padding: 10px;
+  //                           font-size: 14px;
+  //                           color: #333;
+  //                           background-color: #fff;
+  //                           border-radius: 5px;
+  //                           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  //                         }
+  //                       }
+  //                     `;
+    
+                   
+  
+  //                   const infoWindow = new google.maps.InfoWindow({
+  //                     content,
+  //                   });
+  //                   infoWindow.open(map, marker);
+  //                 });
+  //                 bounds.extend(marker.position);
+  
+  //                 // marker.addListener("click", () => {
+  //                 //   infoWindow.open(map, marker);
+  //                 // });
+  
+  //             //     setMarkers((prevMarkers) => [...prevMarkers, marker]);
+  //             //     setInfoWindows((prevInfoWindows) => [
+  //             //       ...prevInfoWindows,
+  //             //       infoWindow,
+  //             //     ]);
+  //             //   }
+  //             // });
+  //           } else {
+  //             // エラー時の処理
+  //             console.log("検索できませんでした");
+  //           }
+  //         }
+  //       );
+  //     });
+  //   }
+  // };
+
   const searchByPlaceName = (placeName: string) => {
     if (map && maps) {
       const service = new maps.places.PlacesService(map);
@@ -323,6 +469,8 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
             if (status === maps.places.PlacesServiceStatus.OK && results) {
               results.forEach((place) => {
                 if (place.geometry?.location) {
+                  map.setCenter(place.geometry.location);
+                  map.setZoom(14);
                   let markerIcon;
                   if (['温泉', '銭湯', 'サウナ'].includes(keyword)) {
                     markerIcon = {

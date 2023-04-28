@@ -219,7 +219,7 @@ export const MyContainer = () => {
           type="text"
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
-          placeholder="地名を検索 例：東京駅"
+          placeholder="地名を検索 例：渋谷"
         />
         <Button 
         //  onClick={searchKeyword}
