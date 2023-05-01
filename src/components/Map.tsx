@@ -167,59 +167,6 @@ export const Map: React.FC<Props> = ({ location, isSwitchLocation, onClickResetS
                       infoWindow.open(map, marker);
                     });
                   });
-
-                //   // 800は写真のサイズ
-                //   const photoUrl = getPhotoUrl(place?.photos, 800);
-
-                //   // 営業時間を改行させる処理をしている
-                //   const openingHours = place?.opening_hours?.weekday_text
-                //     ? place.opening_hours.weekday_text.join('<br>')
-                //     : '';
-                //     console.log(place);
-  
-                //   const infoWindow = new maps.InfoWindow({
-                //     content: `
-                //       <div>
-                //         <h3>${place.name}</h3>
-                //         <p>${place.formatted_address}</p>
-                //         <p>評価：${place?.rating}</p>
-                //         <p>営業時間：<br>${openingHours}</p>
-                //         ${photoUrl ? `<img src="${photoUrl}" alt="${place?.name}" style="width: 100%; height: auto; margin-top: 10px;" />` : ''}
-                //         <p><a href="https://www.google.com/maps/search/?api=1&query=${place?.name}" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 'bold', color: 'blue' }}>Google Map で見る</a></p>
-                        
-                //       </div>
-                //     `,
-                //   });
-
-                //   const StyledMap = styled.div`
-                //   height: 100vh;
-                //   width: 100%;
-                
-                //   .gm-style-iw {
-                //     background-color: #fff !important;
-                //     z-index: 9999 !important;
-                  
-                //     .info-window {
-                //       // InfoWindowの内容をスタイリング
-                //       padding: 10px;
-                //       font-size: 14px;
-                //       color: #333;
-                //       background-color: #fff;
-                //       border-radius: 5px;
-                //       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-                //     }
-                //   }
-                // `;
-  
-                //   marker.addListener("click", () => {
-                //     infoWindow.open(map, marker);
-                //   });
-  
-                //   setMarkers((prevMarkers) => [...prevMarkers, marker]);
-                //   setInfoWindows((prevInfoWindows) => [
-                //     ...prevInfoWindows,
-                //     infoWindow,
-                //   ]);
                 }
               });
             } else {
